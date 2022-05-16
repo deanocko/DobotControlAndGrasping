@@ -1,13 +1,155 @@
-% x: 0.184030471802
-% 0 = -0.07  z
+%% Helpful Terminal Commands
+% sudo chmod 666 /dev/ttyUSB0;
+% roslaunch dobot_magician_driver dobot_magician.launch
 
-% Yellow = [11.5 -4.5 -0.07]cm
-% Purple = [3.5 -8 -0.07]
-% Orange = [2.5 -17.5 -0.07]
-% Basket = [10 10.5 -0.07]
+close all;
+clear all;
+clc;
 
-x = 0.184030471802;
-Yellow = [0.115 + x -0.045 -0.07];
-Purple = [0.035 + x -0.08 -0.07];
-Orange = [0.025 + x -0.175 -0.07];
-Basket = [0.10 + x 0.105 -0.157];
+%% Initialise Dobot
+rosshutdown;
+rosinit;
+[safetyStatePublisher, safetyStateMsg] = rospublisher('/dobot_magician/target_safety_status');
+safetyStateMsg.Data = 2;
+send(safetyStatePublisher, safetyStateMsg);
+pause(24); % Long pause to wait for robot to properly initialise
+fprintf('\nDobot is initialised\n');
+
+%% Initialise Variables
+% 0 = -0.07  blockZ
+robotXZero = 0.184030471802;
+blockZ = -0.065;
+basketRimZ = 0.09;
+locationGreenBlock = [0.3 -0.033 blockZ];
+locationYellowBlock = [0.195 -0.169 blockZ];
+locationOrangeBlock = [0.246 -0.08 blockZ];
+locationBasket = [0.287 0.093 basketRimZ];
+
+%% todo Pickup Green Block and drop into Basket
+%Move EE to above the green block
+target = locationGreenBlock;
+targetAbove = target;
+targetAbove(3) = target(3) + 0.05; % Move the EE 5cm higher than the robot to prevent collisons with blocks and the basket rim
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(targetAbove)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pauseDuration = 3; %Seconds
+pause(pauseDuration)
+
+%Move EE down to the green block
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+
+%Grip the green block
+state = 1; % 1 = grip with End Effector
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1 state];
+send(toolStatePub, toolStateMsg);
+pause (pauseDuration)
+
+%Move to the height of the basket rim
+target(3) = basketRimZ;
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pause(pauseDuration)
+
+%Move the EE to the basket
+target = locationBasket
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pause(pauseDuration)
+
+%Release the gripper
+state = 0; % 0 = release End Effector Grip
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1 state];
+send(toolStatePub, toolStateMsg);
+
+%% todo Pickup Orange Block and drop into Basket
+%Move EE to above the orange block
+target = locationOrangeBlock;
+targetAbove = target;
+targetAbove(3) = target(3) + 0.05; % Move the EE 5cm higher than the robot to prevent collisons with blocks and the basket rim
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(targetAbove)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pauseDuration = 3; %Seconds
+pause(pauseDuration)
+
+%Move EE down to the orange block
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+
+%Grip the orange block
+state = 1; % 1 = grip with End Effector
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1 state];
+send(toolStatePub, toolStateMsg);
+pause (pauseDuration)
+
+%Move to the height of the basket rim
+target(3) = basketRimZ;
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pause(pauseDuration)
+
+%Move the EE to the basket
+target = locationBasket
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pause(pauseDuration)
+
+%Release the gripper
+state = 0; % 0 = release End Effector Grip
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1 state];
+send(toolStatePub, toolStateMsg);
+
+%% todo Pickup Yellow Block and drop into Basket
+%Move EE to above the Yellow block
+target = locationYellowBlock;
+targetAbove = target;
+targetAbove(3) = target(3) + 0.05; % Move the EE 5cm higher than the robot to prevent collisons with blocks and the basket rim
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(targetAbove)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pauseDuration = 3; %Seconds
+pause(pauseDuration)
+
+%Move EE down to the Yellow block
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+
+%Grip the Yellow block
+state = 1; % 1 = grip with End Effector
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1 state];
+send(toolStatePub, toolStateMsg);
+pause (pauseDuration)
+
+%Move to the height of the basket rim
+target(3) = basketRimZ;
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pause(pauseDuration)
+
+%Move the EE to the basket
+target = locationBasket
+[targetEndEffectorPub, targetEndEffectorMsg] = rospublisher('/dobot_magician/target_end_effector_pose');
+[targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(target)
+send(targetEndEffectorPub, targetEndEffectorMsg);
+pause(pauseDuration)
+
+%Release the gripper
+state = 0; % 0 = release End Effector Grip
+[toolStatePub, toolStateMsg] = rospublisher('/dobot_magician/target_tool_state');
+toolStateMsg.Data = [1 state];
+send(toolStatePub, toolStateMsg);
