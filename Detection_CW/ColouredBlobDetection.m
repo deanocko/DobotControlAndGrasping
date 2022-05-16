@@ -1,4 +1,4 @@
-function ColouredBlobDetection()
+function coords = ColouredBlobDetection()
 clc;
 clear;
 close all;
@@ -12,6 +12,9 @@ image_filepath = 'image_2.jpg';
 not_mask_top_threshold = 90;
 is_mask_bottom_threshold = 160;
 eliminate_blob_size = 100;
+frame_realworld_width = 0.8; % in Metres
+dobot_above_frame = 0.3; % in Metres, distance out of top of frame
+dobot_midline = 445; % in Pixels
 
 % Create and setup a new figure
 figure;
@@ -27,6 +30,9 @@ end
 
 % Read the image from the filepath.
 [rgb_image, ~] = imread(image_filepath);
+
+[rows, columns, ~] = size(rgb_image);
+frame_realworld_height = frame_realworld_width * (rows / columns);
 
 % Separate the colour bands of the image
 red_band = rgb_image(:, :, 1);
@@ -159,4 +165,20 @@ hold on;
 plot(blue_x, blue_y, 'or');
 title('Most Blue Object', 'FontSize', font_size);
 
+% Get position of objects in frame in realworld distance relative to top left
+dobot_midline = frame_realworld_width * (dobot_midline / columns);
+
+% negative x value means to the left of the robot, positive is to the right
+red_x_real = dobot_midline - (frame_realworld_width * (red_x / columns));
+red_y_real = dobot_above_frame + (frame_realworld_height * (red_y / rows));
+
+green_x_real = dobot_midline - frame_realworld_width * (green_x / columns);
+green_y_real = dobot_above_frame + (frame_realworld_height * (green_y / rows));
+
+blue_x_real = dobot_midline - frame_realworld_width * (blue_x / columns);
+blue_y_real = dobot_above_frame + (frame_realworld_height * (blue_y / rows));
+
+coords = [red_x_real, red_y_real; green_x_real, green_y_real; blue_x_real, blue_y_real];
+% 445px is midline of dobot
+% 0.3m
 return;
