@@ -34,6 +34,9 @@ The Models folder contains all of the ply models that we used for our simulation
 %% ObjectClasses - Dean
 The ObjectClasses folder contains all of the items that can currently be picked up by our Dobot in Simulation. All of the objects are children of the item class which contains the object location and a destructor to remove the objects from the scene.
 
+%% GUI - Will, Joseph and Dean
+The GUI folder was primarily built for our robotics assignment but could be adapted for use with the real robot and ROS. Much of the functionality within the GUI will be broken as the functions that are used are not pertinent to this project.
+
 %% RealRobot - Dean
 The RealRobot folder contains a class for the Dobot robot and the MoveDobot function which allows for the easy population of ROS messages and publishers when sending a command to the robot.
 
