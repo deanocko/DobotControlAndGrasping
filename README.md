@@ -28,7 +28,7 @@ The folder also contains some example images that were used for testing.
 ## DobotControl - Dean and Joseph
 The DobotControl folder contains the Resolved Motion Rate Control function used to control the Dobot Magician within simulation. This function isn't used in our demo with the real robot, however, the DobotMagician library allows for the sending of joint values so this could be integrated with the physical robot if desired.
 
-## Models - Dean, Joseph and Will
+## Models - Dean
 The Models folder contains all of the ply models that we used for our simulation. This includes the Dobot magician's joints.
 
 ## ObjectClasses - Dean
