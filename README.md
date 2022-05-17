@@ -15,7 +15,7 @@ The main file runs the code demonstrated in our progress video. Running this cod
 
 ## Detection - Chris
 The ColouredBlobDetection function in the detection folder is used for identifying the objects in the rgb image.
-The folder also contains some example images that were used for testing.
+The folder also contains some example images & bag files that were used for testing.
 
 	A full explanation of the ColouredBlobDetection function:
 	- To use this function, you must input an image and define colour and dimensional threshold values.
