@@ -1,6 +1,8 @@
 function PositionObject(robot, placementLocation, objectType)
-    %Uses RMRC to move robot to the object and then return to it's starting position
-    %traj = desired trajectory, lims = robot limits
+    %Uses RMRC to place an object of the desired type at a specified location
+    % Robot: desired robot to pickup object
+    % ObjectType: type of desired object to place
+    % placementLocation: location to place object
     startPoint = robot.model.fkine(robot.model.getpos());
     startPoint = startPoint(1:3, 4);
     endPoint = placementLocation;

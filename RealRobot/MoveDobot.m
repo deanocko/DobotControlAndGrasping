@@ -1,6 +1,8 @@
 function [targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(locationDesired)
-    %UNTITLED2 Summary of this function goes here
-    %   Detailed explanation goes here
+    % function that populates the required ROS messages to send a desired End Effector Pose to the Dobot Magician robot
+    %targetEndEffectorPub: ROS publisher
+    %targetEndEffectorMsg: ROS Message
+    %locationDesired: Desired position of the Dobot end effector after movement
 
     %% Movement of the End Effector to Hover Over Object
     target = locationDesired;
@@ -18,5 +20,5 @@ function [targetEndEffectorPub, targetEndEffectorMsg] = MoveDobot(locationDesire
     targetEndEffectorMsg.Orientation.Y = qua(3);
     targetEndEffectorMsg.Orientation.Z = qua(4);
 
-%     send(targetEndEffectorPub, targetEndEffectorMsg); % Send command to move
+    %     send(targetEndEffectorPub, targetEndEffectorMsg); % Send command to move
 end

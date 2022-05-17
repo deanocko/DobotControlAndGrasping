@@ -1,7 +1,9 @@
 function [qMatrix] = RMRC(endPoint, traj, robot)
     %Uses RMRC to move robot through a specified trajectory
-    %traj = desired trajectory, lims = robot limits
-    lims = robot.jointLimits;
+    %traj = desired trajectory, jointLimits = robot limits
+    %qMatrix: Returns a joint angle matrix for animating the robot and/or checking collisions along its trajectory
+
+    jointLimits = robot.jointLimits;
 
     startPoint = robot.model.fkine(robot.model.getpos());
     startPoint = startPoint(1:3, 4);
@@ -112,10 +114,10 @@ function [qMatrix] = RMRC(endPoint, traj, robot)
         for j = 1:3 % Loop through joints 1 to 6
 
             if j == 3
-                [~, index] = min(abs(lims(:, 1) - qMatrix(i, 2)));
-                [~, index2] = min(abs(lims(:, 3) - qMatrix(i, 2)));
-                qlim(3, 1) = lims(index, 2);
-                qlim(3, 2) = lims(index2, 4);
+                [~, index] = min(abs(jointLimits(:, 1) - qMatrix(i, 2)));
+                [~, index2] = min(abs(jointLimits(:, 3) - qMatrix(i, 2)));
+                qlim(3, 1) = jointLimits(index, 2);
+                qlim(3, 2) = jointLimits(index2, 4);
             end
 
             if qMatrix(i, j) + deltaT * qdot(i, j) < qlim(j, 1) % If next joint angle is lower than joint limit...

@@ -1,6 +1,6 @@
 function RotateRobot(robot, angle)
-    %Function that animates a robot rotating to a desired joint state
-    %Takes a robot and the desired joint configuration.
+    %Function that animates a Dobot rotating it's joint 1
+    %Takes a Dobot handle and the desired angle
     % angle needs to be -135 -> 135 degrees
 
     steps = 100;

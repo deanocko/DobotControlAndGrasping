@@ -1,6 +1,7 @@
 function GrabAndReturn(robot, object)
     %Uses RMRC to move robot to the object and then return to it's starting position
-    %traj = desired trajectory, lims = robot limits
+    % Robot: desired robot to pickup object
+    % Object: desired object to move
 
     midPoint = object.location;
     midPoint(3) = midPoint(3) + 0.02;

@@ -1,7 +1,7 @@
 function AnimateRobots(robot, qTarget)
-    %Function that animates one or both of their robots on a desired
-    %trajectory. Takes one or two robots, their current joint configurations
-    %and their desired joint configurations.
+    %Function that animates a robos on a desired
+    %trajectory. Takes a robot, it's current joint configuration
+    %and the desired joint configuration.
 
     steps = 100;
     qCurrent = robot.model.getpos();

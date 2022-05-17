@@ -1,5 +1,5 @@
 classdef Strawberry < Item
-    %!Strawberry class
+    % Strawberry class. A child of Item
 
     properties (Constant)
         diameter = 0.025;

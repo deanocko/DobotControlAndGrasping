@@ -1,5 +1,5 @@
 classdef Item
-    %!Item class which stores key Fruit attributes
+    % Parent class for all items
 
     properties (Constant)
         % height = 0.03;

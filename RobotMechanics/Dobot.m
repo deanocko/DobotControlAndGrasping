@@ -1,7 +1,6 @@
 classdef Dobot < handle
-
+    %Class for the Dobot Magician Robot
     properties
-        %> Robot model
         model;
         jointLimits;
         workspace = [-1 1 -1 1 -0.3 1];
@@ -34,10 +33,10 @@ classdef Dobot < handle
             pause(0.001);
             name = ['Dobot', datestr(now, 'yyyymmddTHHMMSSFFF')];
             %     end
-            L(1) = Link('d', 0.138, 'a', 0, 'alpha', -pi/2, 'offset', 0, 'qlim', [-135 * pi / 180 135 * pi / 180]);
+            L(1) = Link('d', 0.138, 'a', 0, 'alpha', -pi / 2, 'offset', 0, 'qlim', [-135 * pi / 180 135 * pi / 180]);
             L(2) = Link('d', 0, 'a', 0.135, 'alpha', 0, 'offset', -pi / 2, 'qlim', [5 * pi / 180 80 * pi / 180]);
             L(3) = Link('d', 0, 'a', 0.147, 'alpha', pi, 'offset', 0, 'qlim', [-5 * pi / 180 85 * pi / 180]);
-            L(4) = Link('d', 0, 'a', 0.05, 'alpha', pi/2, 'offset', 0, 'qlim', [-pi / 2 pi / 2]);
+            L(4) = Link('d', 0, 'a', 0.05, 'alpha', pi / 2, 'offset', 0, 'qlim', [-pi / 2 pi / 2]);
             L(5) = Link('d', 0.09, 'a', 0, 'alpha', 0, 'offset', 0, 'qlim', [-85 * pi / 180 85 * pi / 180]);
             self.model = SerialLink(L, 'name', name, 'base', self.base);
         end

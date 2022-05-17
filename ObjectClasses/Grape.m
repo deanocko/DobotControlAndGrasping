@@ -1,5 +1,5 @@
 classdef Grape < Item
-    %!Grape class
+    % Grape class. A child of Item
 
     properties (Constant)
         diameter = 0.025;
