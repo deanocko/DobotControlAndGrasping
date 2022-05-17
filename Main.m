@@ -21,17 +21,23 @@ robotXZero = 0.184030471802;
 blockZ = -0.065;
 basketRimZ = 0.09;
 
-%% Input Image
+%% Input ROSBAG
 
-image_filepath = "image_2.jpg";
-[rgb_image, ~] = imread(image_filepath);
+bag_filepath = "capture_1.bag";
 
-% Check if the image exists
-if ~exist(image_filepath, 'file')
-    message = sprintf('The file could not be found:\n%s ', image_filepath);
+% Check if the bag file exists
+if ~exist(bag_filepath, 'file')
+    message = sprintf('The file could not be found:\n%s ', bag_filepath);
     uiwait(msgbox(message));
     return;
 end
+
+bag = rosbag(bag_filepath);
+selection = select(bag, 'Topic', '/device_0/sensor_1/Color_0/image/data');
+message_structs = readMessages(selection);
+msg = message_structs{1};
+
+[rgb_image, ~] = readImage(msg);
 
 %% Block Location Extraction
 % Define threshold values
