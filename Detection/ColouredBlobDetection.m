@@ -1,25 +1,14 @@
-function coords = ColouredBlobDetection(not_mask_top_threshold, is_mask_bottom_threshold, eliminate_blob_size, frame_realworld_width, dobot_above_frame, dobot_midline)
+% This function is used to identify objects in the rgb image 
+
+function coords = ColouredBlobDetection(rgb_image, not_mask_top_threshold, is_mask_bottom_threshold, eliminate_blob_size, frame_realworld_width, dobot_above_frame, dobot_midline)
     close all;
     imtool close all;
     workspace;
-
-    % Set the image filepath
-    image_filepath = 'image_2.jpg';
 
     % Create and setup a new figure
     figure;
     font_size = 16;
     set(gcf, 'Position', get(0, 'ScreenSize'));
-
-    % Check if the image exists
-    if ~exist(image_filepath, 'file')
-        message = sprintf('The file could not be found:\n%s ', image_filepath);
-        uiwait(msgbox(message));
-        return;
-    end
-
-    % Read the image from the filepath.
-    [rgb_image, ~] = imread(image_filepath);
 
     [rows, columns, ~] = size(rgb_image);
     frame_realworld_height = frame_realworld_width * (rows / columns);
@@ -158,17 +147,16 @@ function coords = ColouredBlobDetection(not_mask_top_threshold, is_mask_bottom_t
     % Get position of objects in frame in realworld distance relative to top left
     dobot_midline = frame_realworld_width * (dobot_midline / columns);
 
-    % negative x value means to the left of the robot, positive is to the right
-    red_x_real =- (dobot_midline - (frame_realworld_width * (red_x / columns)));
+    % negative x value means to the right of the robot, positive is to the
+    % left
+    red_x_real = - (dobot_midline - (frame_realworld_width * (red_x / columns)));
     red_y_real = dobot_above_frame + (frame_realworld_height * (red_y / rows));
 
-    green_x_real =- (dobot_midline - frame_realworld_width * (green_x / columns));
+    green_x_real = - (dobot_midline - frame_realworld_width * (green_x / columns));
     green_y_real = dobot_above_frame + (frame_realworld_height * (green_y / rows));
 
-    blue_x_real =- (dobot_midline - frame_realworld_width * (blue_x / columns));
+    blue_x_real = - (dobot_midline - frame_realworld_width * (blue_x / columns));
     blue_y_real = dobot_above_frame + (frame_realworld_height * (blue_y / rows));
 
     coords = [red_x_real, red_y_real; green_x_real, green_y_real; blue_x_real, blue_y_real];
-    % 445px is midline of dobot
-    % 0.3m
     return;

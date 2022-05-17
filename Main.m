@@ -21,6 +21,18 @@ robotXZero = 0.184030471802;
 blockZ = -0.065;
 basketRimZ = 0.09;
 
+%% Input Image
+
+image_filepath = "image_2.jpg";
+[rgb_image, ~] = imread(image_filepath);
+
+% Check if the image exists
+if ~exist(image_filepath, 'file')
+    message = sprintf('The file could not be found:\n%s ', image_filepath);
+    uiwait(msgbox(message));
+    return;
+end
+
 %% Block Location Extraction
 % Define threshold values
 not_mask_top_threshold = 90;
@@ -29,7 +41,7 @@ eliminate_blob_size = 100;
 frame_realworld_width = 0.8; % in Metres
 dobot_above_frame = 0.18; % in Metres, distance out of top of frame
 dobot_midline = 445; % in Pixels
-blockCoordinates = ColouredBlobDetection(not_mask_top_threshold, is_mask_bottom_threshold, eliminate_blob_size, frame_realworld_width, dobot_above_frame, dobot_midline);
+blockCoordinates = ColouredBlobDetection(rgb_image, not_mask_top_threshold, is_mask_bottom_threshold, eliminate_blob_size, frame_realworld_width, dobot_above_frame, dobot_midline);
 
 locationRedBlock = [blockCoordinates(1, 2) blockCoordinates(1, 1) blockZ]
 locationGreenBlock = [blockCoordinates(2, 2) blockCoordinates(2, 1) blockZ]
