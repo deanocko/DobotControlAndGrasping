@@ -1,5 +1,5 @@
 # Sensors and Control Dobot Project: Control and Grasping
-%%%%% Authors 
+<h1> Authors </h1>
 Dean Ockenden    13213537 - Sensors & Control and Robotics
 Joseph Seklawy   12578845 - Robotics Team member
 Will Hoogervorst 00000000 - Robotics Team member
