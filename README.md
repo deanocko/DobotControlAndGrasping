@@ -8,7 +8,8 @@ Chris William    13248164 - Sensors and Control</p>
 Each file has a brief description if it is a function or is commented throughout to ensure ease of following.
 
 <h3>Startup.m<h/3>
-The startup.m file adds all of the files in the current directory to the path. It also runs the robotics toolbox. You will need to run this file or manually add all folders in the directory to path. You should also add a line with the location of your Robotics toolbox or run it separately.
+	<p>
+The startup.m file adds all of the files in the current directory to the path. It also runs the robotics toolbox. You will need to run this file or manually add all folders in the directory to path. You should also add a line with the location of your Robotics toolbox or run it separately.</p>
 
 	<h3>Main File - Dean and Chris<h/3>
 The main file runs the code demonstrated in our progress video. Running this code will take the data from the stored image in the directory and extract the block locations from the image as shown in the figures. These locations will then be sent to the Dobot Magician through ROS which will ideally pickup and drop off the blocks at the desired locations.
