@@ -7,6 +7,10 @@ Chris William    00000000 - Sensors and Control
 
 Each file has a brief description if it is a function or is commented throughout to ensure ease of following.
 
+%%Startup.m
+
+%% Main File
+
 %% Detection
 
 %% DobotControl
